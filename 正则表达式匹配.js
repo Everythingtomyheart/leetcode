@@ -48,26 +48,26 @@
  * @param {string} p
  * @return {boolean}
  */
-var isMatch = function (s, p) {
-    var results =  [...Array(p.length)].map(() => Array(s.length).fill(0))
-    results[0][0]=1
-    for (var i = 1; i < p.length; i++){ // 遍历字符串p
-        results[i][0] = p[i - 1] == '*' ? results[i - 2][0] : 0;
-        for (var j = 1; j < s.length; j++){
-            if (p[i - 1] == '*') {
-                if (s[j - 1] != p[i - 2] && p[i - 2] != '.') {
-                    results[i][j] = results[i - 2][j]; //相当于*一次都不用
-                }
-                else {
-                    results[i][j] = results[i - 2][j] || results[i - 1][j] || results[i][j - 1]; //*一次都不用或者用一次或者用多次
-                }
-            }
-            else if (p[i - 1] == '.' || p[i - 1] == s[j - 1]) {
-                results[i][j] = results[i - 1][j - 1]; // 逐个比较
-            }
-        }
-    }
-    return results[p.length][s.length]
-    
-};
-isMatch("mississippi","mis*is*p*.")
+// var isMatch = function (s, p) {
+//     var results =  [...Array(p.length)].map(() => Array(s.length).fill(false))
+//     results[0][0]=true
+//     for (var i = 1; i < p.length; i++){ // 遍历字符串p
+//         results[i][0] = p[i - 1] == '*' ? results[i - 2][0] : false; // 匹配p中的从第二个元素开始的每一个元素与p的第一个元素的关系
+//         for (var j = 1; j < s.length; j++){ //遍历s字符串，判断s中的每一个元素与当前p对应元素的关系
+//             if (p[i - 1] == '*') { // 遍历的p的当前元素是否为*
+//                 if (s[j - 1] != p[i - 2] && p[i - 2] != '.') { 
+//                     results[i][j] = results[i - 2][j]; //相当于*一次都不用
+//                 }
+//                 else {
+//                     results[i][j] = results[i - 2][j] || results[i - 1][j] || results[i][j - 1]; //*一次都不用或者用一次或者用多次
+//                 }
+//             }
+//             else if (p[i - 1] == '.' || p[i - 1] == s[j - 1]) {
+//                 results[i][j] = results[i - 1][j - 1]; // 逐个比较
+//             }
+//         }
+//     }
+//     return results[p.length-1][s.length-1]
+// };
+// // console.log(isMatch("mississippi", "*mis*is*p*."));
+// console.log(isMatch("aab", "c*a*b"));
